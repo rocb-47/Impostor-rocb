@@ -5,112 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Impostor</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #f2f4f8;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+ <style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0e0e0e;
+    background-image: linear-gradient(45deg, #1a1a1a 25%, transparent 25%), 
+                      linear-gradient(-45deg, #1a1a1a 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #1a1a1a 75%), 
+                      linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
 
-    .container {
-      max-width: 400px;
-      width: 90%;
-      background: #fff;
-      padding: 2em;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
+  .container {
+    max-width: 400px;
+    width: 90%;
+    background: #1b1b1b;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+    text-align: center;
+    border: 1px solid #2e2e2e;
+  }
 
-    h1 {
-      color: #4e7cf1;
-      margin-bottom: 1em;
-    }
+  h1 {
+    color: #00ffff;
+    margin-bottom: 1em;
+    text-shadow: 0 0 5px #00ffff88;
+  }
 
-    h2 {
-      color: #4e7cf1;
-      margin-top: -0.5em;
-      font-size: 1.2em;
-    }
+  h2 {
+    color: #00ccff;
+    margin-top: -0.5em;
+    font-size: 1.2em;
+  }
 
-    label {
-      display: block;
-      text-align: left;
-      margin: 1em 0 0.3em;
-      font-weight: 600;
-    }
+  label {
+    display: block;
+    text-align: left;
+    margin: 1em 0 0.3em;
+    font-weight: 600;
+    color: #ccc;
+  }
 
-    input, select, textarea {
-      width: 100%;
-      padding: 0.7em;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      margin-bottom: 1em;
-      resize: none;
-    }
+  input, select, textarea {
+    width: 100%;
+    padding: 0.7em;
+    font-size: 1em;
+    border: 1px solid #444;
+    border-radius: 10px;
+    background-color: #2b2b2b;
+    color: #fff;
+    margin-bottom: 1em;
+    resize: none;
+  }
 
-    button {
-      background: #4e7cf1;
-      color: white;
-      border: none;
-      padding: 0.9em 1.2em;
-      font-size: 1em;
-      border-radius: 12px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 1em;
-      transition: background 0.3s ease;
-    }
+  button {
+    background: #00ffff;
+    color: #000;
+    border: none;
+    padding: 0.9em 1.2em;
+    font-size: 1em;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1em;
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
 
-    button:hover {
-      background: #3c65d1;
-    }
+  button:hover {
+    background: #00cccc;
+    transform: scale(1.02);
+  }
 
-    #infoText {
-      font-size: 1.2em;
-      margin: 1em 0;
-    }
+  #infoText {
+    font-size: 1.2em;
+    margin: 1em 0;
+    color: #fff;
+  }
 
-    #wordBox {
-      font-size: 1.5em;
-      padding: 2em 1em;
-      margin: 1.5em 0;
-      background: #f0f4ff;
-      border: 2px dashed #4e7cf1;
-      border-radius: 15px;
-      min-height: 6em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+  #wordBox {
+    font-size: 1.5em;
+    padding: 2em 1em;
+    margin: 1.5em 0;
+    background: #2a2a2a;
+    border: 2px dashed #00cccc;
+    border-radius: 15px;
+    min-height: 6em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .impostor-box {
-      background: #ffe0e0 !important;
-      border: 2px dashed #f04e4e !important;
-      color: #f04e4e !important;
-    }
+  .impostor-box {
+    background: #330000 !important;
+    border: 2px dashed #ff3333 !important;
+    color: #ff4444 !important;
+  }
 
-    .impostor-img {
-      width: 60px;
-      margin-top: 0.5em;
-    }
+  .impostor-img {
+    width: 60px;
+    margin-top: 0.5em;
+  }
 
-    .hidden {
-      display: none;
-    }
+  .hidden {
+    display: none;
+  }
 
-    .restart-btn {
-      background: #f04e4e;
-      margin-top: 2em;
-    }
-  </style>
+  .restart-btn {
+    background: #ff3333;
+    margin-top: 2em;
+    color: white;
+  }
+
+  .restart-btn:hover {
+    background: #cc0000;
+  }
+</style>
+
 </head>
 <body>
   <div class="container">
