@@ -9,13 +9,11 @@
   body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #0e0e0e;
-    background-image: linear-gradient(45deg, #1a1a1a 25%, transparent 25%), 
-                      linear-gradient(-45deg, #1a1a1a 25%, transparent 25%), 
-                      linear-gradient(45deg, transparent 75%, #1a1a1a 75%), 
-                      linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-color: #121212;
+    background-image:
+      linear-gradient(#1e1e1e 1px, transparent 1px),
+      linear-gradient(90deg, #1e1e1e 1px, transparent 1px);
+    background-size: 40px 40px;
     color: #f0f0f0;
     display: flex;
     justify-content: center;
@@ -24,26 +22,24 @@
   }
 
   .container {
-    max-width: 400px;
+    max-width: 420px;
     width: 90%;
-    background: #1b1b1b;
+    background: #1f1f1f;
     padding: 2em;
     border-radius: 20px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     text-align: center;
-    border: 1px solid #2e2e2e;
   }
 
   h1 {
-    color: #00ffff;
+    color: #00bcd4;
     margin-bottom: 1em;
-    text-shadow: 0 0 5px #00ffff88;
   }
 
   h2 {
-    color: #00ccff;
-    margin-top: -0.5em;
+    color: #aaaaaa;
     font-size: 1.2em;
+    margin-top: -0.5em;
   }
 
   label {
@@ -51,24 +47,22 @@
     text-align: left;
     margin: 1em 0 0.3em;
     font-weight: 600;
-    color: #ccc;
   }
 
   input, select, textarea {
     width: 100%;
     padding: 0.7em;
     font-size: 1em;
-    border: 1px solid #444;
+    border: none;
     border-radius: 10px;
-    background-color: #2b2b2b;
-    color: #fff;
     margin-bottom: 1em;
-    resize: none;
+    background: #2a2a2a;
+    color: #f0f0f0;
   }
 
   button {
-    background: #00ffff;
-    color: #000;
+    background: #00bcd4;
+    color: white;
     border: none;
     padding: 0.9em 1.2em;
     font-size: 1em;
@@ -76,19 +70,16 @@
     cursor: pointer;
     width: 100%;
     margin-top: 1em;
-    transition: all 0.3s ease;
-    font-weight: bold;
+    transition: background 0.3s ease;
   }
 
   button:hover {
-    background: #00cccc;
-    transform: scale(1.02);
+    background: #019aaa;
   }
 
   #infoText {
     font-size: 1.2em;
     margin: 1em 0;
-    color: #fff;
   }
 
   #wordBox {
@@ -96,7 +87,7 @@
     padding: 2em 1em;
     margin: 1.5em 0;
     background: #2a2a2a;
-    border: 2px dashed #00cccc;
+    border: 2px dashed #00bcd4;
     border-radius: 15px;
     min-height: 6em;
     display: flex;
@@ -106,9 +97,9 @@
   }
 
   .impostor-box {
-    background: #330000 !important;
-    border: 2px dashed #ff3333 !important;
-    color: #ff4444 !important;
+    background: #4e1f1f !important;
+    border: 2px dashed #f44336 !important;
+    color: #f44336 !important;
   }
 
   .impostor-img {
@@ -121,13 +112,12 @@
   }
 
   .restart-btn {
-    background: #ff3333;
+    background: #f44336;
     margin-top: 2em;
-    color: white;
   }
 
   .restart-btn:hover {
-    background: #cc0000;
+    background: #d32f2f;
   }
 </style>
 
