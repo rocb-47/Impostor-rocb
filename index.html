@@ -167,7 +167,6 @@
     let currentPlayer = 0;
     let playerNames = [];
 
-    // Funktion, um das Spiel zu starten
     function startGame() {
       const theme = document.getElementById("theme").value;
       const namesInput = document.getElementById("names").value.trim();
@@ -182,36 +181,19 @@
         return;
       }
 
-      // Zufällige Reihenfolge der Spieler
-      playerNames = shuffle(playerNames);
-
       selectedWord = words[theme][Math.floor(Math.random() * words[theme].length)];
       impostorIndex = Math.floor(Math.random() * playerNames.length);
       currentPlayer = 0;
 
-      // Setze das Setup-Formular zurück
       document.getElementById("setup").classList.add("hidden");
       document.getElementById("handover").classList.remove("hidden");
 
-      // Zeige das Thema
       document.getElementById("currentTheme").classList.remove("hidden");
       document.getElementById("currentTheme").textContent = `Thema: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
 
-      // Informiere den ersten Spieler
       document.getElementById("infoText").textContent = `Gib das Handy an: ${playerNames[currentPlayer]}`;
     }
 
-    // Zufällige Reihenfolge der Spieler mischen
-    function shuffle(array) {
-      let shuffledArray = array.slice();
-      for (let i = shuffledArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
-      return shuffledArray;
-    }
-
-    // Zeige das Wort für den Spieler an
     function revealWord() {
       const wordBox = document.getElementById("wordBox");
       const wordText = document.getElementById("wordText");
@@ -232,7 +214,6 @@
       document.getElementById("game").classList.remove("hidden");
     }
 
-    // Weiter zum nächsten Spieler
     function nextPlayer() {
       currentPlayer++;
       document.getElementById("wordText").textContent = "";
