@@ -148,7 +148,7 @@
       <button onclick="nextPlayer()">Weitergeben</button>
     </div>
 
-    <button class="restart-btn hidden" id="restartButton" onclick="location.reload()">Spiel neu starten</button>
+    <button class="restart-btn hidden" id="restartButton" onclick="restartGame()">Spiel neu starten</button>
   </div>
 
   <script>
@@ -167,33 +167,57 @@
     let currentPlayer = 0;
     let playerNames = [];
 
+    // Funktion, um das Spiel zu starten
     function startGame() {
       const theme = document.getElementById("theme").value;
       const namesInput = document.getElementById("names").value.trim();
-      if (!namesInput) {
+
+      if (!namesInput && localStorage.getItem('playerNames')) {
+        // Falls keine Eingabe, aber ein gespeicherter Wert vorhanden ist
+        playerNames = JSON.parse(localStorage.getItem('playerNames'));
+        document.getElementById("names").value = playerNames.join(", ");
+      } else if (!namesInput) {
         alert("Bitte gib die Namen der Spieler ein.");
         return;
+      } else {
+        playerNames = namesInput.split(",").map(name => name.trim()).filter(n => n.length > 0);
+        if (playerNames.length < 3) {
+          alert("Mindestens 3 Spieler sind nötig.");
+          return;
+        }
+        localStorage.setItem('playerNames', JSON.stringify(playerNames));  // Speichern der Namen
       }
 
-      playerNames = namesInput.split(",").map(name => name.trim()).filter(n => n.length > 0);
-      if (playerNames.length < 3) {
-        alert("Mindestens 3 Spieler sind nötig.");
-        return;
-      }
+      // Zufällige Reihenfolge der Spieler
+      playerNames = shuffle(playerNames);
 
       selectedWord = words[theme][Math.floor(Math.random() * words[theme].length)];
       impostorIndex = Math.floor(Math.random() * playerNames.length);
       currentPlayer = 0;
 
+      // Setze das Setup-Formular zurück
       document.getElementById("setup").classList.add("hidden");
       document.getElementById("handover").classList.remove("hidden");
 
+      // Zeige das Thema
       document.getElementById("currentTheme").classList.remove("hidden");
       document.getElementById("currentTheme").textContent = `Thema: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
 
+      // Informiere den ersten Spieler
       document.getElementById("infoText").textContent = `Gib das Handy an: ${playerNames[currentPlayer]}`;
     }
 
+    // Zufällige Reihenfolge der Spieler mischen
+    function shuffle(array) {
+      let shuffledArray = array.slice();
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+      }
+      return shuffledArray;
+    }
+
+    // Zeige das Wort für den Spieler an
     function revealWord() {
       const wordBox = document.getElementById("wordBox");
       const wordText = document.getElementById("wordText");
@@ -214,6 +238,7 @@
       document.getElementById("game").classList.remove("hidden");
     }
 
+    // Weiter zum nächsten Spieler
     function nextPlayer() {
       currentPlayer++;
       document.getElementById("wordText").textContent = "";
@@ -229,6 +254,12 @@
         document.getElementById("restartButton").classList.remove("hidden");
         alert("Alle haben den Begriff gesehen. Jetzt beschreibt und findet den Impostor!");
       }
+    }
+
+    // Spiel neu starten
+    function restartGame() {
+      localStorage.removeItem('playerNames');  // Entfernt die gespeicherten Namen
+      location.reload();  // Lädt die Seite neu
     }
   </script>
 </body>
