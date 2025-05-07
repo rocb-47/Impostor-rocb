@@ -9,8 +9,8 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #f2f4f8;
-      color: #333;
+      background: linear-gradient(135deg, #4e7cf1, #7a9ef3);
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,24 +18,25 @@
     }
 
     .container {
-      max-width: 400px;
+      max-width: 450px;
       width: 90%;
       background: #fff;
       padding: 2em;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       text-align: center;
     }
 
     h1 {
       color: #4e7cf1;
-      margin-bottom: 1em;
+      margin-bottom: 1.5em;
+      font-size: 2.5em;
     }
 
     h2 {
-      color: #4e7cf1;
-      margin-top: -0.5em;
+      color: #333;
       font-size: 1.2em;
+      margin-top: -0.5em;
     }
 
     label {
@@ -47,12 +48,13 @@
 
     input, select, textarea {
       width: 100%;
-      padding: 0.7em;
+      padding: 0.8em;
       font-size: 1em;
       border: 1px solid #ccc;
       border-radius: 10px;
       margin-bottom: 1em;
       resize: none;
+      background-color: #f9f9f9;
     }
 
     button {
@@ -64,7 +66,7 @@
       border-radius: 12px;
       cursor: pointer;
       width: 100%;
-      margin-top: 1em;
+      margin-top: 1.5em;
       transition: background 0.3s ease;
     }
 
@@ -78,28 +80,13 @@
     }
 
     #wordBox {
-      font-size: 1.5em;
-      padding: 2em 1em;
+      font-size: 1.4em;
+      padding: 1.5em;
       margin: 1.5em 0;
       background: #f0f4ff;
       border: 2px dashed #4e7cf1;
       border-radius: 15px;
-      min-height: 6em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .impostor-box {
-      background: #ffe0e0 !important;
-      border: 2px dashed #f04e4e !important;
-      color: #f04e4e !important;
-    }
-
-    .impostor-img {
-      width: 60px;
-      margin-top: 0.5em;
+      min-height: 3em;
     }
 
     .hidden {
@@ -110,23 +97,53 @@
       background: #f04e4e;
       margin-top: 2em;
     }
+
+    .impostor-img {
+      width: 80%;
+      margin-top: 1em;
+      max-height: 120px;
+      object-fit: contain;
+    }
+
+    .impostor-box {
+      background-color: #e74c3c;
+      padding: 2em;
+      border-radius: 15px;
+      margin-bottom: 2em;
+      color: white;
+    }
+
+    .impostor-box img {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Impostor</h1>
+
+    <!-- Thema anzeigen -->
     <h2 id="currentTheme" class="hidden"></h2>
 
+    <!-- Setup -->
     <div id="setup">
       <label for="theme">Thema</label>
       <select id="theme">
         <option value="berufe">Berufe</option>
         <option value="tiere">Tiere</option>
-        <option value="länder">Länder</option>
+        <option value="laender">Länder</option>
         <option value="obst">Obst</option>
-        <option value="möbel">Möbel</option>
+        <option value="moebel">Möbel</option>
         <option value="sport">Sportarten</option>
         <option value="instrumente">Instrumente</option>
+        <option value="staedte">Städte</option>
+        <option value="essen">Essen</option>
+        <option value="filme">Filme</option>
+        <option value="beruehmtepersonen">Berühmte Personen</option>
+        <option value="tierimzoo">Tiere im Zoo</option>
+        <option value="musikgenres">Musik Genres</option>
+        <option value="technologien">Technologien</option>
+        <option value="naturwunder">Naturwunder</option>
       </select>
 
       <label for="names">Namen der Spieler (durch Komma trennen)</label>
@@ -135,31 +152,42 @@
       <button onclick="startGame()">Spiel starten</button>
     </div>
 
+    <!-- Übergabe -->
     <div id="handover" class="hidden">
       <p id="infoText"></p>
       <button onclick="revealWord()">Start</button>
     </div>
 
+    <!-- Anzeige Wort -->
     <div id="game" class="hidden">
-      <div id="wordBox">
-        <span id="wordText"></span>
-        <img src="Emote.png" alt="Impostor Bild" class="impostor-img hidden" id="impostorImage">
-      </div>
+      <div id="wordBox"></div>
       <button onclick="nextPlayer()">Weitergeben</button>
     </div>
 
-    <button class="restart-btn hidden" id="restartButton" onclick="location.reload()">Spiel neu starten</button>
+    <!-- Neustart -->
+    <button class="restart-btn hidden" id="restartButton" onclick="restartGame()">Spiel neu starten</button>
+
+    <!-- Bild für Impostor -->
+    <img src="impostor_image.png" alt="Impostor Bild" class="impostor-img hidden" id="impostorImage">
   </div>
 
   <script>
     const words = {
       berufe: ["Lehrer", "Arzt", "Bäcker", "Pilot", "Polizist", "Koch", "Ingenieur"],
       tiere: ["Katze", "Hund", "Elefant", "Pferd", "Löwe", "Fuchs", "Giraffe"],
-      länder: ["Deutschland", "Frankreich", "Italien", "Spanien", "Japan", "Kanada"],
+      laender: ["Deutschland", "Frankreich", "Italien", "Spanien", "Japan", "Kanada"],
       obst: ["Apfel", "Banane", "Kirsche", "Mango", "Traube", "Pfirsich"],
-      möbel: ["Stuhl", "Tisch", "Sofa", "Bett", "Schrank", "Regal"],
+      moebel: ["Stuhl", "Tisch", "Sofa", "Bett", "Schrank", "Regal"],
       sport: ["Fußball", "Basketball", "Tennis", "Boxen", "Rudern", "Skifahren"],
-      instrumente: ["Gitarre", "Klavier", "Geige", "Trommel", "Saxofon", "Flöte"]
+      instrumente: ["Gitarre", "Klavier", "Geige", "Trommel", "Saxofon", "Flöte"],
+      staedte: ["Paris", "London", "Tokio", "New York", "Berlin", "Rom", "Sydney"],
+      essen: ["Pizza", "Burger", "Sushi", "Pasta", "Döner", "Tacos", "Lasagne"],
+      filme: ["Inception", "Titanic", "Avatar", "Matrix", "Jurassic Park", "The Dark Knight", "Avengers"],
+      beruehmtepersonen: ["Einstein", "Picasso", "Beethoven", "Mozart", "Newton", "Shakespeare", "Tesla"],
+      tierimzoo: ["Elefant", "Löwe", "Giraffe", "Zebra", "Affe", "Krokodil", "Pinguin"],
+      musikgenres: ["Rock", "Pop", "Jazz", "Blues", "Klassik", "Metal", "Hip-Hop"],
+      technologieren: ["Smartphone", "Computer", "Internet", "KI", "Blockchain", "VR", "3D-Druck"],
+      naturwunder: ["Grand Canyon", "Niagara-Fälle", "Everest", "Geysire", "Amazonas-Regenwald", "Great Barrier Reef"]
     };
 
     let selectedWord = "";
@@ -167,6 +195,7 @@
     let currentPlayer = 0;
     let playerNames = [];
 
+    // Startet das Spiel und mischt die Reihenfolge der Spieler
     function startGame() {
       const theme = document.getElementById("theme").value;
       const namesInput = document.getElementById("names").value.trim();
@@ -177,58 +206,61 @@
 
       playerNames = namesInput.split(",").map(name => name.trim()).filter(n => n.length > 0);
       if (playerNames.length < 3) {
-        alert("Mindestens 3 Spieler sind nötig.");
+        alert("Mindestens 3 Spieler sind erforderlich.");
         return;
       }
 
-      selectedWord = words[theme][Math.floor(Math.random() * words[theme].length)];
-      impostorIndex = Math.floor(Math.random() * playerNames.length);
-      currentPlayer = 0;
+      // Mische die Reihenfolge der Spieler
+      playerNames = shuffle(playerNames);
 
+      // Zeige das Thema
+      document.getElementById("currentTheme").innerText = "Thema: " + theme.charAt(0).toUpperCase() + theme.slice(1);
+      document.getElementById("currentTheme").classList.remove("hidden");
+
+      // Verberge das Setup
       document.getElementById("setup").classList.add("hidden");
       document.getElementById("handover").classList.remove("hidden");
 
-      document.getElementById("currentTheme").classList.remove("hidden");
-      document.getElementById("currentTheme").textContent = `Thema: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
-
-      document.getElementById("infoText").textContent = `Gib das Handy an: ${playerNames[currentPlayer]}`;
+      // Nächsten Spieler anzeigen
+      document.getElementById("infoText").innerText = `${playerNames[currentPlayer]} ist dran!`;
     }
 
-    function revealWord() {
-      const wordBox = document.getElementById("wordBox");
-      const wordText = document.getElementById("wordText");
-      const impostorImage = document.getElementById("impostorImage");
-
-      wordBox.classList.remove("impostor-box");
-      impostorImage.classList.add("hidden");
-
-      if (currentPlayer === impostorIndex) {
-        wordText.textContent = "Impostor";
-        wordBox.classList.add("impostor-box");
-        impostorImage.classList.remove("hidden");
-      } else {
-        wordText.textContent = `Begriff: ${selectedWord}`;
+    // Zufallsreihenfolge mischen
+    function shuffle(array) {
+      let shuffledArray = array.slice();
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
       }
+      return shuffledArray;
+    }
 
-      document.getElementById("handover").classList.add("hidden");
+    // Zeige das Wort für den Spieler
+    function revealWord() {
+      const theme = document.getElementById("theme").value;
+      const themeWords = words[theme];
+      selectedWord = themeWords[Math.floor(Math.random() * themeWords.length)];
+      document.getElementById("wordBox").innerText = selectedWord;
       document.getElementById("game").classList.remove("hidden");
     }
 
+    // Nächster Spieler
     function nextPlayer() {
       currentPlayer++;
-      document.getElementById("wordText").textContent = "";
-      document.getElementById("impostorImage").classList.add("hidden");
-      document.getElementById("wordBox").classList.remove("impostor-box");
-
-      if (currentPlayer < playerNames.length) {
-        document.getElementById("infoText").textContent = `Gib das Handy an: ${playerNames[currentPlayer]}`;
-        document.getElementById("game").classList.add("hidden");
-        document.getElementById("handover").classList.remove("hidden");
-      } else {
-        document.getElementById("game").classList.add("hidden");
+      if (currentPlayer >= playerNames.length) {
+        currentPlayer = 0;
         document.getElementById("restartButton").classList.remove("hidden");
-        alert("Alle haben den Begriff gesehen. Jetzt beschreibt und findet den Impostor!");
       }
+
+      document.getElementById("infoText").innerText = `${playerNames[currentPlayer]} ist dran!`;
+      document.getElementById("wordBox").innerText = "";
+    }
+
+    // Neustart des Spiels
+    function restartGame() {
+      currentPlayer = 0;
+      document.getElementById("restartButton").classList.add("hidden");
+      startGame();
     }
   </script>
 </body>
